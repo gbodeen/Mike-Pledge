@@ -1,2 +1,2 @@
-# Mike-service-player
-Music player service
+# Mike-JumpStart-Pledge
+Pledge service for JumpStart
