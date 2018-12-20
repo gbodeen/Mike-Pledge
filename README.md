@@ -1,2 +1,2 @@
-# Mike-JumpStart-Pledge
-Pledge service for JumpStart
+# Mike-service-pledge
+Pledge service
