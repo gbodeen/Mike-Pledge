@@ -1,11 +1,10 @@
-var knex = require("knex")({
+let db = require("knex")({
   client: "pg",
   connection: {
     username: "student",
     password: "student",
-    database: "postgres"
+    database: "pledges"
   }
 });
 
-
-module.exports = knex
+module.exports = db;

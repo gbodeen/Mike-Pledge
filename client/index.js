@@ -1,3 +1,3 @@
-import Info from './components/iteminfo.jsx';
+import Pledge from "./components/pledge.jsx";
 
-window.Info = Info;
+window.Pledge = Pledge;
