@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+// import "../styles/app.css";
 
 const pledgeStyle = {
   float: "right",
@@ -15,30 +16,45 @@ export default class Pledge extends React.Component {
     super();
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.changeProject = this.changeProject.bind(this);
     this.state = {
-      next_id: 1,
       pledge_amount: "10",
       isValidNumber: true,
       hasBacked: false
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.id !== prevProps.id) {
+      axios
+        .get("http://localhost:3000/pledges", {
+          params: {
+            id: this.props.id
+          }
+        })
+        .then(result => {
+          this.setState({
+            goal: result.data.goal,
+            pledged: result.data.pledged,
+            backer_count: result.data.backer_count,
+            days_left: result.data.days_left
+          });
+        });
+    }
+  }
+
   componentDidMount() {
     axios
       .get("http://localhost:3000/pledges", {
         params: {
-          id: this.state.next_id
+          id: this.props.id
         }
       })
       .then(result => {
         this.setState({
-          id: result.data.id,
           goal: result.data.goal,
           pledged: result.data.pledged,
           backer_count: result.data.backer_count,
-          days_left: result.data.days_left,
-          next_id: result.data.id + 1
+          days_left: result.data.days_left
         });
       });
   }
@@ -46,7 +62,7 @@ export default class Pledge extends React.Component {
   handleClick(e) {
     axios
       .post("http://localhost:3000/pledges", {
-        id: this.state.id,
+        id: this.props.id,
         pledge_amount: Number(this.state.pledge_amount),
         hasBacked: this.state.hasBacked
       })
@@ -78,30 +94,11 @@ export default class Pledge extends React.Component {
     });
   }
 
-  changeProject(e) {
-    axios
-      .get("http://localhost:3000/pledges", {
-        params: {
-          id: this.state.next_id
-        }
-      })
-      .then(result => {
-        this.setState({
-          id: result.data.id,
-          goal: result.data.goal,
-          pledged: result.data.pledged,
-          backer_count: result.data.backer_count,
-          days_left: result.data.days_left,
-          next_id: result.data.id + 1
-        });
-      });
-  }
-
   render() {
     return (
       <div style={pledgeStyle}>
         <p>
-          <span>Goal: {this.state.goal}</span>
+          <span id="goal">Goal: {this.state.goal}</span>
           <br />
           <span>Pledged: {this.state.pledged}</span>
           <br />
@@ -122,8 +119,6 @@ export default class Pledge extends React.Component {
             onClick={this.handleClick}
             disabled={!this.state.isValidNumber}
           />
-          <br />
-          <button onClick={this.changeProject}>ChangeProject</button>
         </p>
       </div>
     );
