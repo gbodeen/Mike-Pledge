@@ -8,17 +8,16 @@ const app = express();
 const port = process.env.PORT || 3003;
 
 app.use(morgan("dev"));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(bodyParser.json());
 
-app.get("/pledges", (req, res) => {
+app.get("/pledges/:id", (req, res) => {
   db.select()
-    .where({ id: req.query.id })
+    .where({ id: req.params.id })
     .from("pledges")
     .then(result => {
-      return result;
-    })
-    .then(result => {
+      result[0].pledged = Number(result[0].pledged);
       res.status(200);
       res.json(result[0]);
     })
@@ -36,14 +35,7 @@ app.post("/pledges", (req, res) => {
       backer_count: Number(!req.body.hasBacked)
     })
     .then(() => {
-      db.select("pledged", "backer_count")
-        .where({ id: req.body.id })
-        .from("pledges")
-        .then(result => {
-          console.log(result);
-          res.status(200);
-          res.json(result[0]);
-        });
+      res.sendStatus(200);
     })
     .catch(err => {
       console.log("There was an error updating pledge amount in db: ");
