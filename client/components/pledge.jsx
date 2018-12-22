@@ -57,11 +57,7 @@ export default class Pledge extends React.Component {
         hasBacked: this.state.hasBacked
       })
       .then(() => {
-        return axios.get("http://localhost:3000/pledges", {
-          params: {
-            id: this.props.id
-          }
-        });
+        return axios.get("http://localhost:3000/pledges/" + this.props.id);
       })
       .then(result => {
         this.setState({
