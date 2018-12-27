@@ -32,9 +32,7 @@ app.get("/pledges/:id", (req, res) => {
 });
 
 app.post("/pledges", (req, res) => {
-  if (req.params.id === "undefined") {
-    req.params.id = 1;
-  }
+  req.body.id = 1;
   db("pledges")
     .where({ id: req.body.id })
     .increment({
