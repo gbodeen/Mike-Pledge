@@ -15,11 +15,11 @@ module.exports = {
   deploy: {
     production: {
       user: "ubuntu",
-      host: "http://ec2-18-234-245-254.compute-1.amazonaws.com",
-      port: "3005",
+      host: "ec2-18-234-245-254.compute-1.amazonaws.com",
+      port: "22",
       key: "~/.ssh/firstInstance.pem",
       ref: "origin/master",
-      repo: "git@github.com:Michael-K-Oconnor/Mike-JumpStart-Pledge",
+      repo: "git@github.com:Michael-K-Oconnor/Mike-JumpStart-Pledge.git",
       path: "/home/ubuntu/Mike-JumpStart-Pledge",
       "post-deploy":
         "npm install && pm2 startOrRestart ecosystem.config.js --env production"
