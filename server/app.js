@@ -45,7 +45,7 @@ app.post("/pledges", (req, res) => {
       res.sendStatus(200);
     })
     .catch(err => {
-      console.log("There was an error updating pledge amount in db: ");
+      console.log("There was an error updating pledge amount in db: ", err);
       res.sendStatus(500);
     });
 });
