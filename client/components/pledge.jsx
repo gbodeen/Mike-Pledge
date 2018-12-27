@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import config from "../config.js";
 // import "../styles/app.css";
 
 const pledgeStyle = {
@@ -26,7 +27,7 @@ export default class Pledge extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.id !== prevProps.id) {
       axios
-        .get("http://localhost:3000/pledges/" + this.props.id)
+        .get(config.hostURL + config.hostPort + "/pledges/" + this.props.id)
         .then(result => {
           this.setState({
             goal: result.data.goal,
@@ -39,25 +40,29 @@ export default class Pledge extends React.Component {
   }
 
   componentDidMount() {
-    axios.get("http://localhost:3000/pledges/" + this.props.id).then(result => {
-      this.setState({
-        goal: result.data.goal,
-        pledged: result.data.pledged,
-        backer_count: result.data.backer_count,
-        days_left: result.data.days_left
+    axios
+      .get(config.hostURL + config.hostPort + "/pledges/" + this.props.id)
+      .then(result => {
+        this.setState({
+          goal: result.data.goal,
+          pledged: result.data.pledged,
+          backer_count: result.data.backer_count,
+          days_left: result.data.days_left
+        });
       });
-    });
   }
 
   handleClick(e) {
     axios
-      .post("http://localhost:3000/pledges", {
+      .post(config.hostURL + config.hostPort + "/pledges", {
         id: this.props.id,
         pledge_amount: Number(this.state.pledge_amount),
         hasBacked: this.state.hasBacked
       })
       .then(() => {
-        return axios.get("http://localhost:3000/pledges/" + this.props.id);
+        return axios.get(
+          config.hostURL + config.hostPort + "/pledges/" + this.props.id
+        );
       })
       .then(result => {
         this.setState({

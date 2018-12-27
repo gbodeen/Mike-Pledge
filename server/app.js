@@ -12,6 +12,9 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use(bodyParser.json());
 
 app.get("/pledges/:id", (req, res) => {
+  if (req.params.id === "undefined") {
+    req.params.id = 1;
+  }
   db.select()
     .where({ id: req.params.id })
     .from("pledges")
