@@ -29,7 +29,7 @@ module.exports = {
       repo: "git@github.com:Michael-K-Oconnor/Mike-JumpStart-Pledge.git",
       path: "/home/ubuntu/Mike-JumpStart-Pledge",
       "post-deploy":
-        "npm install && npm run webpack && pm2 startOrRestart ecosystem.config.js --env production"
+        "npm install && npm run build && pm2 startOrRestart ecosystem.config.js --env production"
       // env: {
       //   NODE_ENV: "production"
       // }
