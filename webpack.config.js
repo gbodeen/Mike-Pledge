@@ -18,16 +18,6 @@ module.exports = {
         use: ["style-loader", "css-loader"]
       }
     ]
-    // loaders: [
-    //   {
-    //     test: /\.jsx?$/,
-    //     exclude: /node_modules/,
-    //     loader: 'babel-loader',
-    //     query: {
-    //       presets: ['react', 'es2015', 'env']
-    //     },
-    //   },
-    // ],
   },
   output: {
     path: __dirname + "/public",
