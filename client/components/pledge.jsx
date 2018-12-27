@@ -33,7 +33,9 @@ export default class Pledge extends React.Component {
             goal: result.data.goal,
             pledged: result.data.pledged,
             backer_count: result.data.backer_count,
-            days_left: result.data.days_left
+            days_left: result.data.days_left,
+            pledged_amount: "10",
+            hasBacked: false
           });
         });
     }
