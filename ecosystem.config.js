@@ -16,6 +16,7 @@ module.exports = {
     production: {
       user: "ubuntu",
       host: "http://ec2-18-234-245-254.compute-1.amazonaws.com",
+      port: "3005",
       key: "~/.ssh/firstInstance.pem",
       ref: "origin/master",
       repo: "git@github.com:Michael-K-Oconnor/Mike-JumpStart-Pledge",
