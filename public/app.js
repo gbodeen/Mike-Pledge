@@ -535,7 +535,7 @@ eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nvar config = {\n  hostURL: \"http://localhost:\",\n  hostPort: \"3003\"\n};\n\nexports.default = config;//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9jb25maWcuanMuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vY2xpZW50L2NvbmZpZy5qcz8wYWQ5Il0sInNvdXJjZXNDb250ZW50IjpbImNvbnN0IGNvbmZpZyA9IHtcbiAgaG9zdFVSTDogXCJodHRwOi8vbG9jYWxob3N0OlwiLFxuICBob3N0UG9ydDogXCIzMDAzXCJcbn07XG5cbmV4cG9ydCBkZWZhdWx0IGNvbmZpZztcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFBQTtBQUNBO0FBQ0E7QUFGQTtBQUNBO0FBSUEiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./config.js\n");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nvar config = {\n  hostURL: \"http://ec2-18-234-245-254.compute-1.amazonaws.com:\",\n  hostPort: \"3003\"\n};\n\nexports.default = config;//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9jb25maWcuanMuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vY2xpZW50L2NvbmZpZy5qcz8wYWQ5Il0sInNvdXJjZXNDb250ZW50IjpbImNvbnN0IGNvbmZpZyA9IHtcbiAgaG9zdFVSTDogXCJodHRwOi8vZWMyLTE4LTIzNC0yNDUtMjU0LmNvbXB1dGUtMS5hbWF6b25hd3MuY29tOlwiLFxuICBob3N0UG9ydDogXCIzMDAzXCJcbn07XG5cbmV4cG9ydCBkZWZhdWx0IGNvbmZpZztcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFBQTtBQUNBO0FBQ0E7QUFGQTtBQUNBO0FBSUEiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./config.js\n");
 
 /***/ }),
 
