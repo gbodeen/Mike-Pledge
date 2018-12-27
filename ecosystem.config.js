@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 module.exports = {
   apps: [
     {
@@ -10,11 +8,6 @@ module.exports = {
       },
       env_production: {
         NODE_ENV: "production"
-        // DB_HOST: "mypostgresinstance.cddpmydwbwcw.us-east-1.rds.amazonaws.com",
-        // DB_USER: process.env.DB_USER,
-        // DB_PASSWORD: process.env.DB_PASSWORD,
-        // DB_NAME: process.env.DB_NAME,
-        // PORT: 3003
       }
     }
   ],
@@ -30,9 +23,6 @@ module.exports = {
       path: "/home/ubuntu/Mike-JumpStart-Pledge",
       "post-deploy":
         "npm install && npm run build && pm2 startOrRestart ecosystem.config.js --env production"
-      // env: {
-      //   NODE_ENV: "production"
-      // }
     }
   }
 };
