@@ -1,12 +1,14 @@
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
-const db = require("../db/db.js");
 const bodyParser = require("body-parser");
+const cors = require("cors");
+const db = require("../db/db.js");
 
 const app = express();
 
 app.use(morgan("dev"));
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(bodyParser.json());
@@ -30,6 +32,9 @@ app.get("/pledges/:id", (req, res) => {
 });
 
 app.post("/pledges", (req, res) => {
+  if (req.params.id === "undefined") {
+    req.params.id = 1;
+  }
   db("pledges")
     .where({ id: req.body.id })
     .increment({
