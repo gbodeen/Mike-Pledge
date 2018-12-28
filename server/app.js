@@ -20,7 +20,8 @@ app.get("/pledges/:id", (req, res) => {
     .then(result => {
       result[0].pledged = Number(result[0].pledged);
       res.status(200);
-      result[0].test = process.env.NODE_ENV;
+      result[0].devEnv = process.env.NODE_ENV;
+      result[0].test = process.env.TEST;
       res.json(result[0]);
     })
     .catch(err => {

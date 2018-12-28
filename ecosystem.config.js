@@ -7,7 +7,8 @@ module.exports = {
         NODE_ENV: "development"
       },
       env_production: {
-        NODE_ENV: "production"
+        NODE_ENV: "production",
+        TEST: "THIS IS A TEST"
       }
     }
   ],
