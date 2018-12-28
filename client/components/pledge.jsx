@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import config from "../config.js";
 // import "../styles/app.css";
 
 const pledgeStyle = {
@@ -20,51 +19,46 @@ export default class Pledge extends React.Component {
     this.state = {
       pledge_amount: "10",
       isValidNumber: true,
-      hasBacked: false
+      hasBacked: false,
+      pledgesRoute: "http://" + window.location.hostname + ":3000/pledges/"
     };
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.id !== prevProps.id) {
-      axios
-        .get(config.hostURL + config.hostPort + "/pledges/" + this.props.id)
-        .then(result => {
-          this.setState({
-            goal: result.data.goal,
-            pledged: result.data.pledged,
-            backer_count: result.data.backer_count,
-            days_left: result.data.days_left,
-            pledged_amount: "10",
-            hasBacked: false
-          });
-        });
-    }
-  }
-
-  componentDidMount() {
-    axios
-      .get(config.hostURL + config.hostPort + "/pledges/" + this.props.id)
-      .then(result => {
+      axios.get(this.state.pledgesRoute + this.props.id).then(result => {
         this.setState({
           goal: result.data.goal,
           pledged: result.data.pledged,
           backer_count: result.data.backer_count,
-          days_left: result.data.days_left
+          days_left: result.data.days_left,
+          pledge_amount: "10",
+          hasBacked: false
         });
       });
+    }
+  }
+
+  componentDidMount() {
+    axios.get(this.state.pledgesRoute + this.props.id).then(result => {
+      this.setState({
+        goal: result.data.goal,
+        pledged: result.data.pledged,
+        backer_count: result.data.backer_count,
+        days_left: result.data.days_left
+      });
+    });
   }
 
   handleClick(e) {
     axios
-      .post(config.hostURL + config.hostPort + "/pledges", {
+      .post(this.state.pledgesRoute, {
         id: this.props.id,
         pledge_amount: Number(this.state.pledge_amount),
         hasBacked: this.state.hasBacked
       })
       .then(() => {
-        return axios.get(
-          config.hostURL + config.hostPort + "/pledges/" + this.props.id
-        );
+        return axios.get(this.state.pledgesRoute + this.props.id);
       })
       .then(result => {
         this.setState({

@@ -7,7 +7,7 @@
     "test": "jest",
     "build": "webpack",
     "start": "node ./server/server.js",
-    "start-dev": "pm2 start --env development --no-deamon",
+    "start-dev": "pm2 start --env development --no-daemon",
     "end-dev": "pm2 stop Pledges && pm2 delete Pledges",
     "old-start-dev": "NODE_ENV=development nodemon ./server/server.js",
     "webpack": "webpack -d -w",
