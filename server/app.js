@@ -22,6 +22,7 @@ app.get("/pledges/:id", (req, res) => {
       res.status(200);
       result[0].devEnv = process.env.NODE_ENV;
       result[0].test = process.env.TEST;
+      result[0].update = "true";
       res.json(result[0]);
     })
     .catch(err => {

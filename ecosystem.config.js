@@ -1,14 +1,20 @@
+require("dotenv").config();
+
 module.exports = {
   apps: [
     {
       name: "Pledges",
       script: "./server/server.js",
+      watch: ["sever", "public"],
       env: {
-        NODE_ENV: "development"
+        NODE_ENV: "development",
+        PORT: process.env.DEV_PORT,
+        TEST: process.env.DEV_TEST
       },
       env_production: {
         NODE_ENV: "production",
-        TEST: "THIS IS A TEST"
+        PORT: process.env.PROD_PORT,
+        TEST: process.env.PROD_TEST
       }
     }
   ],
