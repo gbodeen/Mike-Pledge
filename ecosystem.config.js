@@ -8,11 +8,19 @@ module.exports = {
       watch: ["server", "public"],
       env: {
         NODE_ENV: "development",
+        DB_HOST: process.env.DEV_DB_HOST,
+        DB_USER: process.env.DEV_DB_USER,
+        DB_PASSWORD: process.env.DEV_DB_PASSWORD,
+        DB_NAME: process.env.DEV_DB_NAME,
         PORT: process.env.DEV_PORT,
         TEST: process.env.DEV_TEST
       },
       env_production: {
         NODE_ENV: "production",
+        DB_HOST: process.env.PROD_DB_HOST,
+        DB_USER: process.env.PROD_DB_USER,
+        DB_PASSWORD: process.env.PROD_DB_PASSWORD,
+        DB_NAME: process.env.PROD_DB_NAME,
         PORT: process.env.PROD_PORT,
         TEST: process.env.PROD_TEST
       }
