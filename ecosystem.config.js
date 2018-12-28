@@ -5,7 +5,7 @@ module.exports = {
     {
       name: "Pledges",
       script: "./server/server.js",
-      watch: ["sever", "public"],
+      watch: ["server", "public"],
       env: {
         NODE_ENV: "development",
         PORT: process.env.DEV_PORT,
