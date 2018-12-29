@@ -4,7 +4,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("../db/db.js");
-
+const config = require("./config.js");
 const app = express();
 
 app.use(morgan("dev"));
@@ -14,7 +14,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use(bodyParser.json());
 
 app.get("/test", (req, res) => {
-  res.json(process.env.DB_USER);
+  res.json(config.DB_USER);
 });
 
 app.get("/pledges/:id", (req, res) => {
