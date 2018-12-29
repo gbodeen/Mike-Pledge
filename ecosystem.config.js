@@ -12,8 +12,7 @@ module.exports = {
         DB_USER: process.env.DEV_DB_USER,
         DB_PASSWORD: process.env.DEV_DB_PASSWORD,
         DB_NAME: process.env.DEV_DB_NAME,
-        PORT: process.env.DEV_PORT,
-        TEST: process.env.DEV_TEST
+        PORT: process.env.DEV_PORT
       },
       env_production: {
         NODE_ENV: "production",
@@ -21,8 +20,7 @@ module.exports = {
         DB_USER: process.env.PROD_DB_USER,
         DB_PASSWORD: process.env.PROD_DB_PASSWORD,
         DB_NAME: process.env.PROD_DB_NAME,
-        PORT: process.env.PROD_PORT,
-        TEST: process.env.PROD_TEST
+        PORT: process.env.PROD_PORT
       }
     }
   ],
