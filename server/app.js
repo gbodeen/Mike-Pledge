@@ -13,6 +13,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(bodyParser.json());
 
+app.get("/test", (req, res) => {
+  res.json(process.env.DB_USER);
+});
+
 app.get("/pledges/:id", (req, res) => {
   db.select()
     .where({ id: req.params.id })
