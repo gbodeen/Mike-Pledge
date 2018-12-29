@@ -24,7 +24,6 @@ app.get("/pledges/:id", (req, res) => {
     .then(result => {
       result[0].pledged = Number(result[0].pledged);
       res.status(200);
-      result[0].env = process.env.DB_USER;
       res.json(result[0]);
     })
     .catch(err => {

@@ -7,7 +7,7 @@ module.exports = {
       script: "./server/server.js",
       watch: ["server", "public"],
       env: {
-        NODE_ENV: "development"
+        NODE_ENV: "test"
       },
       env_development: {
         NODE_ENV: "development",
@@ -15,7 +15,7 @@ module.exports = {
         DB_USER: process.env.DEV_DB_USER,
         DB_PASSWORD: process.env.DEV_DB_PASSWORD,
         DB_NAME: process.env.DEV_DB_NAME,
-        PORT: process.env.DEV_PORT
+        PORT: process.env.DEV_PLEDGE_PORT
       },
       env_production: {
         NODE_ENV: "production",
@@ -23,7 +23,7 @@ module.exports = {
         DB_USER: process.env.PROD_DB_USER,
         DB_PASSWORD: process.env.PROD_DB_PASSWORD,
         DB_NAME: process.env.PROD_DB_NAME,
-        PORT: process.env.PROD_PORT
+        PORT: process.env.PROD_PLEDGE_PORT
       }
     }
   ],
