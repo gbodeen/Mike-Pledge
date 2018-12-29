@@ -7,6 +7,9 @@ module.exports = {
       script: "./server/server.js",
       watch: ["server", "public"],
       env: {
+        NODE_ENV: "development"
+      },
+      env_development: {
         NODE_ENV: "development",
         DB_HOST: process.env.DEV_DB_HOST,
         DB_USER: process.env.DEV_DB_USER,
