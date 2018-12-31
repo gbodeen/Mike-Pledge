@@ -29,6 +29,7 @@ app.get("/pledges/:id", (req, res) => {
     .catch(err => {
       console.log("There was an error getting info from DB", err);
       res.sendStatus(500);
+      res.end();
     });
 });
 
@@ -41,10 +42,12 @@ app.post("/pledges", (req, res) => {
     })
     .then(() => {
       res.sendStatus(200);
+      res.end();
     })
     .catch(err => {
       console.log("There was an error updating pledge amount in db: ", err);
       res.sendStatus(500);
+      res.end();
     });
 });
 
