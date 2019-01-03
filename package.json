@@ -6,10 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "webpack",
-    "start": "node ./server/server.js",
-    "start-dev": "pm2 start --env development --no-daemon",
-    "end-dev": "pm2 stop Pledges && pm2 delete Pledges",
-    "old-start-dev": "NODE_ENV=development nodemon ./server/server.js",
+    "start": "nodemon ./server/server.js",
     "webpack": "webpack -d -w",
     "restart": "pm2 startOrRestart ecosystem.config.js",
     "deploy": "pm2 deploy ecosystem.config.js production"
@@ -38,7 +35,6 @@
   },
   "devDependencies": {
     "css-loader": "^2.0.2",
-    "moxios": "^0.4.0",
     "nodemon": "^1.18.9",
     "pm2": "^3.2.4",
     "style-loader": "^0.23.1",
