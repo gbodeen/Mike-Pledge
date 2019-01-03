@@ -19,27 +19,28 @@ export default class Pledge extends React.Component {
     this.state = {
       pledge_amount: "10",
       isValidNumber: true,
-      hasBacked: false
+      hasBacked: false,
+      pledgesRoute: "http://" + window.location.hostname + ":3000/pledges/"
     };
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.id !== prevProps.id) {
-      axios
-        .get("http://localhost:3000/pledges/" + this.props.id)
-        .then(result => {
-          this.setState({
-            goal: result.data.goal,
-            pledged: result.data.pledged,
-            backer_count: result.data.backer_count,
-            days_left: result.data.days_left
-          });
+      axios.get(this.state.pledgesRoute + this.props.id).then(result => {
+        this.setState({
+          goal: result.data.goal,
+          pledged: result.data.pledged,
+          backer_count: result.data.backer_count,
+          days_left: result.data.days_left,
+          pledge_amount: "10",
+          hasBacked: false
         });
+      });
     }
   }
 
   componentDidMount() {
-    axios.get("http://localhost:3000/pledges/" + this.props.id).then(result => {
+    axios.get(this.state.pledgesRoute + this.props.id).then(result => {
       this.setState({
         goal: result.data.goal,
         pledged: result.data.pledged,
@@ -51,13 +52,13 @@ export default class Pledge extends React.Component {
 
   handleClick(e) {
     axios
-      .post("http://localhost:3000/pledges", {
+      .post(this.state.pledgesRoute, {
         id: this.props.id,
         pledge_amount: Number(this.state.pledge_amount),
         hasBacked: this.state.hasBacked
       })
       .then(() => {
-        return axios.get("http://localhost:3000/pledges/" + this.props.id);
+        return axios.get(this.state.pledgesRoute + this.props.id);
       })
       .then(result => {
         this.setState({
