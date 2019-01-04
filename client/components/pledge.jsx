@@ -12,8 +12,8 @@ const pledgeStyle = {
 };
 
 export default class Pledge extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
