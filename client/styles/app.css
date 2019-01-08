@@ -1,3 +1,10 @@
+.component {
+  border-style: solid;
+  border-width: 2px;
+  text-align: center;
+}
+
 #goal {
-  color: "pink";
+  color: pink;
+  background-color: blue;
 }

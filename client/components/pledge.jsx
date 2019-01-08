@@ -1,15 +1,6 @@
 import React from "react";
 import axios from "axios";
-// import "../styles/app.css";
-
-const pledgeStyle = {
-  float: "right",
-  width: "50%",
-  height: "50%",
-  borderStyle: "solid",
-  borderWidth: "2px",
-  textAlign: "center"
-};
+import "../styles/app.css";
 
 export default class Pledge extends React.Component {
   constructor(props) {
@@ -90,7 +81,7 @@ export default class Pledge extends React.Component {
 
   render() {
     return (
-      <div style={pledgeStyle}>
+      <div className="component">
         <p>
           <span id="goal">Goal: {this.state.goal}</span>
           <br />
