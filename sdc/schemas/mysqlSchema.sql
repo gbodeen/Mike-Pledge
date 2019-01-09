@@ -1,5 +1,6 @@
 USE pledges;
 
+DROP TABLE IF EXISTS pledges;
 DROP TABLE IF EXISTS projects;
 
 CREATE TABLE projects (
@@ -7,17 +8,15 @@ CREATE TABLE projects (
   project_name VARCHAR(255),
   backer_count MEDIUMINT UNSIGNED DEFAULT 0,
   total_pledged DECIMAL(10,2) DEFAULT 0,
-  date_created TIMESTAMP
+  date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-DROP TABLE IF EXISTS pledges;
 
 CREATE TABLE pledges (
   pledge_id BIGINT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(255),
   project_id INT NOT NULL,
   pledge_amount DECIMAL(7,2) NOT NULL DEFAULT 0,
-  date_created TIMESTAMP,
+  date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (project_id) REFERENCES projects (project_id)
 );
 

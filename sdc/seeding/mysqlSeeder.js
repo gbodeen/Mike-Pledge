@@ -6,3 +6,8 @@ For SQL,
 And for a document-based DB:
   each doc is a project, and it has an array of pledges
   */
+require('dotenv');
+const knex = require('knex')(process.env.PLEDGES_DB_ENVIRONMENT);
+
+knex('projects').insert({ project_name: 'Petsy' })
+  .then(result => console.log(result));
