@@ -17,6 +17,19 @@ exports.seed = function (knex, Promise) {
       }
       return Promise.all(promises);
     })
-    .then(() => console.log('Insertions completed'))
+    .then(() => {
+      const promises = [];
+      let username, project_id, pledge_amount;
+      for (let i = 0; i < NUM_PLEDGES; i++) {
+        username = faker.internet.userName();
+        project_id = Math.floor(Math.random() * NUM_PROJECTS) + 1;
+        pledge_amount = Math.floor(Math.random() * 10000) / 100;
+        promises.push(knex('pledges').insert({ username, project_id, pledge_amount }));
+        promises.push(knex('projects').where({ project_id }).increment({ backer_count: 1, total_pledged: pledge_amount }));
+      }
+      return Promise.all(promises);
+    })
+    .then(() => console.log('All insertions completed.'))
     .catch(err => console.log('Error with insertions: ', err));
 };
+
