@@ -16,8 +16,7 @@ CREATE TABLE pledges (
   username VARCHAR(255),
   project_id INT NOT NULL,
   pledge_amount DECIMAL(7,2) NOT NULL DEFAULT 0,
-  date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (project_id) REFERENCES projects (project_id)
+  date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
