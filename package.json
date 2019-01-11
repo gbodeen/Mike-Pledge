@@ -4,7 +4,7 @@
   "description": "",
   "main": "bundle.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage || true",
     "build": "webpack",
     "start": "nodemon ./server/server.js",
     "webpack": "webpack -d -w",
@@ -42,5 +42,13 @@
     "style-loader": "^0.23.1",
     "supertest": "^3.3.0",
     "webpack-cli": "^3.1.2"
+  },
+  "jest": {
+    "verbose": false,
+    "testURL": "http://localhost",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/tests/"
+    ]
   }
 }

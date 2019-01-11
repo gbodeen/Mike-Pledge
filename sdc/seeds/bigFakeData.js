@@ -52,3 +52,8 @@ exports.seed = function (knex, Promise) {
       console.log(`Error inserting into database: `, err)
     });
 };
+
+module.exports = {
+  NUM_PLEDGES,
+  NUM_PROJECTS
+}
