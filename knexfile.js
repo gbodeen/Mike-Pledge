@@ -10,12 +10,15 @@ module.exports = {
       user: process.env.LOCAL_MYSQL_USER,
       password: process.env.LOCAL_MYSQL_PASS
     },
-    // pool: {
-    //   min: 2,
-    //   max: 10
-    // },
+    pool: {
+      min: 2,
+      max: 10
+    },
     migrations: {
       tableName: 'knex_migrations'
+    },
+    seeds: {
+      directory: 'sdc/seeds'
     }
   }
 
