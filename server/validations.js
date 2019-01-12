@@ -20,7 +20,7 @@ const validatePledge = async (pledge) => {
   }
 
   // should contain valid pledge amount
-  if (typeof pledge_amount !== 'number' || pledge_amount <= 0 || pledge_amount === Number(pledge_amount.toFixed(2))) {
+  if (typeof pledge_amount !== 'number' || pledge_amount <= 0 || pledge_amount !== Number(pledge_amount.toFixed(2))) {
     return false;
   }
 
@@ -30,8 +30,8 @@ const validatePledge = async (pledge) => {
     return false;
   }
 
-  // if all tests are fine, it's valid
-  return true;
+  // if the pledge format is fine, return the required fields.
+  return { pledge_amount, project_id, username };
 }
 
 const validateProject = (project) => {
@@ -45,7 +45,7 @@ const validateProject = (project) => {
     return false;
   }
 
-  const { project_name } = pledge;
+  const { project_name } = project;
 
   // should contain valid project_name
   if (typeof project_name !== 'string' || project_name.length < 3 || project_name.length > 255) {
@@ -53,7 +53,7 @@ const validateProject = (project) => {
   }
 
   // if all tests are fine, it's valid
-  return true;
+  return { project_name };
 }
 
 

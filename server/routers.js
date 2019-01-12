@@ -11,7 +11,7 @@ const {
 } = require('../sdc/controllers/controllers');
 const { validatePledge, validateProject } = require('./validations');
 
-router.get('/pledge/:pledge_id', function (req, res) {
+router.get('/pledge/:pledge_id', (req, res) => {
   const pledge_id = req.params.pledge_id;
   getPledgeDetails({ pledge_id })
     .then(details => {
@@ -23,7 +23,7 @@ router.get('/pledge/:pledge_id', function (req, res) {
     });
 });
 
-router.get('/project/:project_id', function (req, res) {
+router.get('/project/:project_id', (req, res) => {
   const project_id = req.params.project_id;
   getProjectDetails({ project_id })
     .then(details => {
@@ -35,9 +35,9 @@ router.get('/project/:project_id', function (req, res) {
     });
 });
 
-router.post('/pledge', bodyparser.json(), function (req, res) {
-  const pledge = req.body;
-  if (!validatePledge(pledge)) {
+router.post('/pledge', bodyparser.json(), async (req, res) => {
+  const pledge = await validatePledge(req.body);
+  if (!pledge) {
     res.status(400).send('Submitted pledge contains invalid information or is missing required information.');
   } else {
     addNewPledge(pledge)
@@ -51,9 +51,9 @@ router.post('/pledge', bodyparser.json(), function (req, res) {
   }
 });
 
-router.post('/project', bodyparser.json(), function (req, res) {
-  const project = req.body;
-  if (!validateProject(project)) {
+router.post('/project', bodyparser.json(), (req, res) => {
+  const project = validateProject(req.body);
+  if (!project) {
     res.status(400).send('Submitted project contains invalid information or is missing required information.');
   } else {
     addNewProject(project)
@@ -75,7 +75,7 @@ router.post('/project', bodyparser.json(), function (req, res) {
 //   res.send('About birds')
 // });
 
-router.delete('/pledge/:pledge_id', function (req, res) {
+router.delete('/pledge/:pledge_id', (req, res) => {
   const pledge_id = req.params.pledge_id;
   deletePledge({ pledge_id })
     .then(() => {
@@ -87,7 +87,7 @@ router.delete('/pledge/:pledge_id', function (req, res) {
     });
 });
 
-router.delete('/project/:project_id', function (req, res) {
+router.delete('/project/:project_id', (req, res) => {
   const project_id = req.params.project_id;
   deleteProject({ project_id })
     .then(() => {
