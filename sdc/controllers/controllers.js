@@ -16,6 +16,9 @@ const addPledgeToProject = (project_id, pledge_amount) => {
 }
 
 const getProjectDetails = (matchCriteria) => {
+  if (typeof matchCriteria === 'string') {
+    return knex('projects').where(...matchCriteria.split(' ')).select();
+  }
   return knex('projects').where(matchCriteria).select();
 }
 
