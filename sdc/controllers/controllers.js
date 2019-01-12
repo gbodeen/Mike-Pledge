@@ -8,7 +8,9 @@ const addNewProject = (project_name) => {
 
 const addNewPledge = (pledge) => {
   return knex('pledges').insert(pledge)
-    .then(() => addPledgeToProject(pledge.project_id, pledge.pledge_amount));
+    .then(() =>
+      addPledgeToProject(pledge.project_id, pledge.pledge_amount)
+    )
 }
 
 const addPledgeToProject = (project_id, pledge_amount) => {

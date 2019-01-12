@@ -4,14 +4,14 @@ const bodyparser = require('body-parser');
 const {
   addNewProject,
   addNewPledge,
-  addPledgeToProject,
   getProjectDetails,
   getPledgeDetails,
   deletePledge,
   deleteProject
 } = require('../sdc/controllers/controllers');
+const { validatePledge, validateProject } = require('./validations');
 
-router.get('/pledges/:pledge_id', function (req, res) {
+router.get('/pledge/:pledge_id', function (req, res) {
   const pledge_id = req.params.pledge_id;
   getPledgeDetails({ pledge_id })
     .then(details => {
@@ -23,7 +23,7 @@ router.get('/pledges/:pledge_id', function (req, res) {
     });
 });
 
-router.get('/projects/:project_id', function (req, res) {
+router.get('/project/:project_id', function (req, res) {
   const project_id = req.params.project_id;
   getProjectDetails({ project_id })
     .then(details => {
@@ -36,27 +36,67 @@ router.get('/projects/:project_id', function (req, res) {
 });
 
 router.post('/pledge', bodyparser.json(), function (req, res) {
-  console.log('POSTED TO PLEDGES: ', req.body, req.json);
+  const pledge = req.body;
+  if (!validatePledge(pledge)) {
+    res.status(400).send('Submitted pledge contains invalid information or is missing required information.');
+  } else {
+    addNewPledge(pledge)
+      .then(() =>
+        res.status(200).send('Submitted pledge successfully.')
+      )
+      .catch(err => {
+        console.log('Error posting pledge.', pledge, err);
+        res.status(500).send('Error posting pledge.');
+      });
+  }
 });
 
 router.post('/project', bodyparser.json(), function (req, res) {
-  res.send('About birds')
+  const project = req.body;
+  if (!validateProject(project)) {
+    res.status(400).send('Submitted project contains invalid information or is missing required information.');
+  } else {
+    addNewProject(project)
+      .then(() =>
+        res.status(200).send('Submitted project successfully.')
+      )
+      .catch(err => {
+        console.log('Error posting project.', project, err);
+        res.status(500).send('Error posting project.');
+      });
+  }
 });
 
-router.patch('/pledges/:pledge_id', bodyparser.json(), function (req, res) {
-  res.send('About birds')
+// router.patch('/pledges/:pledge_id', bodyparser.json(), function (req, res) {
+//   res.send('About birds')
+// });
+
+// router.patch('/projects/:project_id', bodyparser.json(), function (req, res) {
+//   res.send('About birds')
+// });
+
+router.delete('/pledge/:pledge_id', function (req, res) {
+  const pledge_id = req.params.pledge_id;
+  deletePledge({ pledge_id })
+    .then(() => {
+      res.status(200).send(`Pledge with id ${pledge_id} has been deleted.`);
+    })
+    .catch(err => {
+      console.log('Error deleting pledge.', err);
+      res.status(500).send('Error deleting pledge.')
+    });
 });
 
-router.patch('/projects/:project_id', bodyparser.json(), function (req, res) {
-  res.send('About birds')
-});
-
-router.delete('/pledges/:pledge_id', function (req, res) {
-  res.send('About birds')
-});
-
-router.delete('/projects/:project_id', function (req, res) {
-  res.send('About birds')
+router.delete('/project/:project_id', function (req, res) {
+  const project_id = req.params.project_id;
+  deleteProject({ project_id })
+    .then(() => {
+      res.status(200).send(`Project with id ${project_id} has been deleted.`);
+    })
+    .catch(err => {
+      console.log('Error deleting project.', err);
+      res.status(500).send('Error deleting project.')
+    });
 });
 
 module.exports = router;
