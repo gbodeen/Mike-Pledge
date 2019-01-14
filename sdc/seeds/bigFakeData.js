@@ -20,8 +20,8 @@ exports.seed = function (knex, Promise) {
       for (let i = 0; i < NUM_PROJECTS; i++) {
         project_name = faker.commerce.productName();
         backer_count = NUM_PLEDGES / NUM_PROJECTS;
-        total_pledged = backer_count * 20;
-        funding_goal = faker.commerce.price();
+        total_pledged = backer_count * 10;
+        funding_goal = faker.commerce.price() * 1000;
         deadline = faker.date.between('2019-02-08', '2019-06-01');
         projects.push({ project_name, backer_count, total_pledged, funding_goal, deadline });
       }
@@ -36,7 +36,7 @@ exports.seed = function (knex, Promise) {
       // INSERT PLEDGES IN SEVERAL BIGBATCHES OF BATCHES
       t0 = process.hrtime();
       let username;
-      const pledge_amount = 20;
+      const pledge_amount = 10;
       for (let i = 0; i < NUM_PLEDGES / NUM_PROJECTS; i++) {
         const pledges = [];
         for (let project_id = 1; project_id <= NUM_PROJECTS; project_id++) {

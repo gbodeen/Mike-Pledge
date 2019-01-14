@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === "production") {
     DB_NAME: process.env.PROD_DB_NAME,
     PORT: process.env.PROD_PLEDGE_PORT
   };
-} else if (process.env.NODE_ENV === "test") {
+} else if (process.env.NODE_ENV === "development") {
   config = {
     DB_HOST: process.env.DEV_DB_HOST,
     DB_USER: process.env.DEV_DB_USER,
