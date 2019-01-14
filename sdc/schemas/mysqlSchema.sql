@@ -8,6 +8,8 @@ CREATE TABLE projects (
   project_name VARCHAR(255),
   backer_count MEDIUMINT UNSIGNED DEFAULT 0,
   total_pledged DECIMAL(10,2) DEFAULT 0,
+  funding_goal DECIMAL(10,2) DEFAULT 5000,
+  deadline TIMESTAMP NOT NULL,
   date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

@@ -7,6 +7,7 @@
     "test": "jest -i --coverage || true",
     "build": "webpack",
     "start": "nodemon ./server/server.js",
+    "node": "node ./server/server.js",
     "webpack": "webpack -d -w",
     "restart": "pm2 startOrRestart ecosystem.config.js",
     "deploy": "pm2 deploy ecosystem.config.js production"

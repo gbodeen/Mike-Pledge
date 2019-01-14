@@ -1,7 +1,10 @@
 const faker = require('faker');
+// const dboptions = require('../../knexfile');
+// const knex = require('knex')(dboptions.development);
 const NUM_PROJECTS = 5000;
 const NUM_PLEDGES = 10e6;
 const BATCH_SIZE = 10000; // used by .batchInsert
+
 
 exports.seed = function (knex, Promise) {
   faker.seed(78704);
@@ -20,7 +23,9 @@ exports.seed = function (knex, Promise) {
         project_name = faker.commerce.productName();
         backer_count = NUM_PLEDGES / NUM_PROJECTS;
         total_pledged = backer_count * 20;
-        projects.push({ project_name, backer_count, total_pledged });
+        funding_goal = faker.commerce.price();
+        deadline = faker.date.soon();
+        projects.push({ project_name, backer_count, total_pledged, funding_goal, deadline });
       }
       return knex.batchInsert('projects', projects, BATCH_SIZE);
     })
@@ -38,7 +43,8 @@ exports.seed = function (knex, Promise) {
         const pledges = [];
         for (let project_id = 1; project_id <= NUM_PROJECTS; project_id++) {
           username = faker.internet.userName();
-          pledges.push({ username, project_id, pledge_amount })
+          date_created = faker.date.recent();
+          pledges.push({ username, project_id, pledge_amount, date_created })
         }
         await knex.batchInsert('pledges', pledges);
       }

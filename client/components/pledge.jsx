@@ -8,22 +8,23 @@ export default class Pledge extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      pledge_amount: "10",
+      pledge_amount: 10,
       isValidNumber: true,
       hasBacked: false,
-      pledgesRoute: "http://" + window.location.hostname + ":3000/pledges/"
+      pledgesRoute: "/pledge/"
     };
   }
 
   componentDidUpdate(prevProps) {
+    const project_id = this.props.id || 1;
     if (this.props.id !== prevProps.id) {
-      axios.get(this.state.pledgesRoute + this.props.id).then(result => {
+      axios.get(this.state.pledgesRoute + project_id).then(result => {
         this.setState({
           goal: result.data.goal,
-          pledged: result.data.pledged,
+          pledged: result.data.total_pledged,
           backer_count: result.data.backer_count,
-          days_left: result.data.days_left,
-          pledge_amount: "10",
+          days_left: Math.floor((Date.now() - result.data.deadline) / 86400000),
+          pledge_amount: 10,
           hasBacked: false
         });
       });
@@ -31,10 +32,11 @@ export default class Pledge extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(this.state.pledgesRoute + this.props.id).then(result => {
+    const project_id = this.props.id || 1;
+    axios.get(this.state.pledgesRoute + project_id).then(result => {
       this.setState({
         goal: result.data.goal,
-        pledged: result.data.pledged,
+        pledged: result.data.total_pledged,
         backer_count: result.data.backer_count,
         days_left: result.data.days_left
       });
@@ -42,14 +44,15 @@ export default class Pledge extends React.Component {
   }
 
   handleClick(e) {
+    const project_id = this.props.id || 1;
     axios
       .post(this.state.pledgesRoute, {
-        id: this.props.id,
+        project_id: project_id,
         pledge_amount: Number(this.state.pledge_amount),
-        hasBacked: this.state.hasBacked
+        username: "Mike " + 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)] + "'Connor"
       })
       .then(() => {
-        return axios.get(this.state.pledgesRoute + this.props.id);
+        return axios.get(this.state.pledgesRoute + project_id);
       })
       .then(result => {
         this.setState({
