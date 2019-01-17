@@ -8,11 +8,11 @@
 // require('newrelic');
 // const {getProjectDetails, getPledgeDetails} = require('../controllers/controllers');
 const { getProjectDetails, getPledgeDetails } = require('../mongo/controllers');
-const { NUM_PROJECTS } = require('../seeds/bigFakeData');
+const { NUM_PROJECTS, NUM_PLEDGES } = require('../seeds/bigFakeData');
 const NUM_QUERIES = 1000;
 const colors = require('colors');
 
-const mongoQueries = () => {
+const mongoProjectQuery = () => {
   let t0 = process.hrtime(), t1, runtime; // start timer
   let project_id;
 
@@ -29,10 +29,34 @@ const mongoQueries = () => {
     totalTime = runtime; //runtimes.reduce((sum, el) => sum + el, 0);
     avgTime = totalTime / NUM_QUERIES;
     rate = 1 / avgTime;
-    console.log(`Running ${NUM_QUERIES} queries took a total of ${totalTime} seconds, averaging ${avgTime} per query.
-    That's an average rate of ${rate} queries per second.`.green);
+    console.log(`Running ${NUM_QUERIES} project queries took a total of ${totalTime} seconds, averaging ${avgTime} per query. That's an average rate of ${rate} queries per second.`.green);
   }, NUM_QUERIES * 10);
 
 }
 
-mongoQueries();
+
+const mongoPledgeQuery = () => {
+  let t0 = process.hrtime(), t1, runtime; // start timer
+  let pledge_id;
+
+  for (let i = 0; i < NUM_QUERIES; i++) {
+    pledge_id = Math.floor(Math.random() * NUM_PLEDGES) + 1;
+    getPledgeDetails({ pledge_id })
+      .then(() => {
+        t1 = process.hrtime(t0);
+        runtime = t1[0] + t1[1] / 1e9;
+      });
+  }
+
+  setTimeout(() => {
+    totalTime = runtime; //runtimes.reduce((sum, el) => sum + el, 0);
+    avgTime = totalTime / NUM_QUERIES;
+    rate = 1 / avgTime;
+    console.log(`Running ${NUM_QUERIES} pledge queries took a total of ${totalTime} seconds, averaging ${avgTime} per query. That's an average rate of ${rate} queries per second.`.green);
+  }, NUM_QUERIES * 10);
+
+}
+
+
+// mongoProjectQuery();
+mongoPledgeQuery();
