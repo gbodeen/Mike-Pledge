@@ -1,5 +1,5 @@
-require('dotenv').config();
-const dboptions = require('../../knexfile')
+require('dotenv').config({ path: '../../.env' });
+const dboptions = require('../../knexfile');
 const knex = require('knex')(dboptions[process.env.PLEDGES_DB_ENVIRONMENT]);
 
 const addNewProject = (project) => {
