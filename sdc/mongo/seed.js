@@ -41,10 +41,11 @@ const insertProjects = async () => {
   let project_name = '';
   let username, project_id, pledge_id;
   const pledge_amount = 10;
+  const pledgesPerProject = NUM_PLEDGES / NUM_PROJECTS
   // const promises = [];
 
   for (let i = 0; i < NUM_PROJECTS; i++) {
-    project_id = i;
+    project_id = i + 1;
     project_name = faker.commerce.productName();
     backer_count = NUM_PLEDGES / NUM_PROJECTS;
     total_pledged = backer_count * 10;
@@ -52,8 +53,8 @@ const insertProjects = async () => {
     deadline = faker.date.between('2019-02-08', '2019-06-01');
 
     pledges = [];
-    for (let j = 0; j < NUM_PLEDGES / NUM_PROJECTS; j++) {
-      pledge_id = j;
+    for (let j = 0; j < pledgesPerProject; j++) {
+      pledge_id = j + 1;
       username = faker.internet.userName();
       date_created = faker.date.recent();
       pledges.push({ pledge_id, username, pledge_amount, date_created });
