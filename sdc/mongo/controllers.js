@@ -22,12 +22,12 @@ const getPledgeDetails = (matchCriteria) => {
     project_name: 1, backer_count: 1, total_pledged: 1, funding_goal: 1, deadline: 1,
     _id: 0, pledges: { $elemMatch: { pledge_id: matchCriteria.pledge_id } }
   };
-  return Project.findOne(subDocumentMatch, projection).explain('executionStats') //.lean().exec()
-  // .then(result => {
-  //   result.total_pledged = decimal128toString(result.total_pledged);
-  //   result.funding_goal = decimal128toString(result.funding_goal);
-  //   return result;
-  // });
+  return Project.findOne(subDocumentMatch, projection).lean().exec()
+    .then(result => {
+      result.total_pledged = decimal128toString(result.total_pledged);
+      result.funding_goal = decimal128toString(result.funding_goal);
+      return result;
+    });
 }
 
 
