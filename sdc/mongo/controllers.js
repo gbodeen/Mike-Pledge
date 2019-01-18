@@ -17,17 +17,17 @@ const getProjectDetails = (matchCriteria) => {
 }
 
 const getPledgeDetails = (matchCriteria) => {
-  // const projection = { pledge_id: 1, username: 1, pledge_amount: 1, _id: 0 };
-  project_id = (Math.floor(matchCriteria.pledge_id / (NUM_PLEDGES / NUM_PROJECTS))) + 1;
-  pledge_id = (matchCriteria.pledge_id % (NUM_PLEDGES / NUM_PROJECTS)) + 1;
-  return Project.findOne({ project_id }).lean()
-    .slice('pledges', [pledge_id - 1, 1]).exec()
-    .then(result => {
-      result.total_pledged = decimal128toString(result.total_pledged);
-      result.funding_goal = decimal128toString(result.funding_goal);
-      result.pledges = result.pledges[0];
-      return result;
-    });
+  const subDocumentMatch = { 'pledges.pledge_id': matchCriteria.pledge_id };
+  const projection = {
+    project_name: 1, backer_count: 1, total_pledged: 1, funding_goal: 1, deadline: 1,
+    _id: 0, pledges: { $elemMatch: { pledge_id: matchCriteria.pledge_id } }
+  };
+  return Project.findOne(subDocumentMatch, projection).explain('executionStats') //.lean().exec()
+  // .then(result => {
+  //   result.total_pledged = decimal128toString(result.total_pledged);
+  //   result.funding_goal = decimal128toString(result.funding_goal);
+  //   return result;
+  // });
 }
 
 

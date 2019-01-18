@@ -42,22 +42,30 @@ const mongoPledgeQuery = () => {
   let t0 = process.hrtime(), t1, runtime; // start timer
   let pledge_id;
   const promises = [];
+  let runtimes = [];
 
   for (let i = 0; i < NUM_QUERIES; i++) {
     pledge_id = Math.floor(Math.random() * NUM_PLEDGES) + 1;
     promises.push(mongo.getPledgeDetails({ pledge_id })
-      .then(() => {
-        t1 = process.hrtime(t0);
-        runtime = t1[0] + t1[1] / 1e9;
+      .then(stats => {
+        runtimes.push(stats.executionStats.executionTimeMillis);
+        // t1 = process.hrtime(t0);
+        // runtime = t1[0] + t1[1] / 1e9;
       }));
   }
 
   return Promise.all(promises).then(() => {
-    totalTime = runtime; //runtimes.reduce((sum, el) => sum + el, 0);
-    avgTime = totalTime / NUM_QUERIES;
+    // totalTime = runtime; //runtimes.reduce((sum, el) => sum + el, 0);
+    // totalTime = runtimes.reduce((sum, num) => sum + num) / 1000;
+    let sortedTimes = runtimes.sort((a, b) => a - b);
+    totalTime = sortedTimes.slice(0, Math.floor(NUM_QUERIES * 0.95)).reduce((sum, num) => sum + num) / 1000;
+
+    // let confidenceInterval95 = [sortedTimes[Math.floor(NUM_QUERIES * 0.05)], sortedTimes[Math.ceil(NUM_QUERIES * 0.95)]];
+    avgTime = totalTime / (NUM_QUERIES * 0.95);
     rate = 1 / avgTime;
-    console.log(`Running ${NUM_QUERIES} MongoDB pledge queries took a total of ${totalTime.toPrecision(5)} seconds, 
-    averaging ${avgTime.toPrecision(5)} per query. That's an average rate of ${rate.toPrecision(5)} queries per second.`.green);
+    console.log(`Ran ${NUM_QUERIES} MongoDB pledge queries. The fastest 95% took a total of ${totalTime.toPrecision(5)} seconds, 
+    averaging ${avgTime.toPrecision(5)} per query. That's an average rate of ${rate.toPrecision(5)} queries per second.
+    The slowest took ${sortedTimes.slice(-1)[0]} ms.`.green);
   });
 
 }
@@ -113,10 +121,10 @@ const mysqlPledgeQuery = () => {
 
 
 const runEachInTurn = async () => {
-  await mongoProjectQuery();
+  // await mongoProjectQuery();
   await mongoPledgeQuery();
-  await mysqlProjectQuery();
-  mysqlPledgeQuery();
+  // await mysqlProjectQuery();
+  // mysqlPledgeQuery();
 }
 
 runEachInTurn();
