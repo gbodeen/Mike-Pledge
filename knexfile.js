@@ -22,6 +22,23 @@ module.exports = {
     }
   },
 
+  dev_pg_db: {
+    client: 'pg',
+    connection: {
+      host: 'localhost',
+      database: 'pledges',
+      user: process.env.LOCAL_PG_USER,
+      password: process.env.LOCAL_PG_PASS
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    seeds: {
+      directory: 'sdc/postgres/seeds/'
+    }
+  },
+
   // staging: {
   //   client: 'mysql',
   //   connection: {

@@ -8,7 +8,7 @@ const {
   getPledgeDetails,
   deletePledge,
   deleteProject
-} = require('../sdc/controllers/controllers');
+} = require('../sdc/postgres/controllers');
 const { validatePledge, validateProject } = require('./validations');
 
 router.get('/pledge/:pledge_id', (req, res) => {
