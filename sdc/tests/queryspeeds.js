@@ -118,10 +118,10 @@ const mysqlPledgeQuery = () => {
 
 
 const runEachInTurn = async () => {
+  await mysqlProjectQuery();
+  await mysqlPledgeQuery();
   await mongoProjectQuery();
   await mongoPledgeQuery();
-  await mysqlProjectQuery();
-  mysqlPledgeQuery();
 }
 
 runEachInTurn();
