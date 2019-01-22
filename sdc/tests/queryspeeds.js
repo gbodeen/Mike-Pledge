@@ -1,4 +1,4 @@
-// write essentially similar queries for MySQL and MongoDB
+// write essentially similar queries for Postgres and MongoDB
 // time them running as a comparison
 // the queries should be realistic
 // e.g. 
@@ -8,9 +8,9 @@
 // require('newrelic');
 // const {getProjectDetails, getPledgeDetails} = require('../controllers/controllers');
 const mongo = require('../mongo/controllers');
-const mysql = require('../controllers/controllers');
+const pg = require('../postgres/controllers');
 const { NUM_PROJECTS, NUM_PLEDGES } = require('../seeds/bigFakeData');
-const NUM_QUERIES = 1000;
+const NUM_QUERIES = 2000;
 const colors = require('colors');
 
 const mongoProjectQuery = () => {
@@ -67,14 +67,14 @@ const mongoPledgeQuery = () => {
 
 }
 
-const mysqlProjectQuery = () => {
+const pgProjectQuery = () => {
   let t0 = process.hrtime(), t1, runtime; // start timer
   let project_id;
   const promises = [];
 
   for (let i = 0; i < NUM_QUERIES; i++) {
     project_id = Math.floor(Math.random() * NUM_PROJECTS) + 1;
-    promises.push(mysql.getProjectDetails({ project_id })
+    promises.push(pg.getProjectDetails({ project_id })
       .then(() => {
         t1 = process.hrtime(t0);
         runtime = t1[0] + t1[1] / 1e9;
@@ -85,20 +85,20 @@ const mysqlProjectQuery = () => {
     totalTime = runtime; //runtimes.reduce((sum, el) => sum + el, 0);
     avgTime = totalTime / NUM_QUERIES;
     rate = 1 / avgTime;
-    console.log(`Running ${NUM_QUERIES} MySQL project queries took a total of ${totalTime.toPrecision(5)} seconds, 
+    console.log(`Running ${NUM_QUERIES} Postgres project queries took a total of ${totalTime.toPrecision(5)} seconds, 
     averaging ${avgTime.toPrecision(5)} per query. That's an average rate of ${rate.toPrecision(5)} queries per second.`.yellow);
   });
 
 }
 
-const mysqlPledgeQuery = () => {
+const pgPledgeQuery = () => {
   let t0 = process.hrtime(), t1, runtime; // start timer
   let pledge_id;
   const promises = [];
 
   for (let i = 0; i < NUM_QUERIES; i++) {
     pledge_id = Math.floor(Math.random() * NUM_PLEDGES) + 1;
-    promises.push(mysql.getPledgeDetails({ pledge_id })
+    promises.push(pg.getPledgeDetails({ pledge_id })
       .then(() => {
         t1 = process.hrtime(t0);
         runtime = t1[0] + t1[1] / 1e9;
@@ -109,7 +109,7 @@ const mysqlPledgeQuery = () => {
     totalTime = runtime; //runtimes.reduce((sum, el) => sum + el, 0);
     avgTime = totalTime / NUM_QUERIES;
     rate = 1 / avgTime;
-    console.log(`Running ${NUM_QUERIES} MySQL pledge queries took a total of ${totalTime.toPrecision(5)} seconds, 
+    console.log(`Running ${NUM_QUERIES} Postgres pledge queries took a total of ${totalTime.toPrecision(5)} seconds, 
     averaging ${avgTime.toPrecision(5)} per query. That's an average rate of ${rate.toPrecision(5)} queries per second.`.blue);
   });
 
@@ -118,10 +118,10 @@ const mysqlPledgeQuery = () => {
 
 
 const runEachInTurn = async () => {
-  await mysqlProjectQuery();
-  await mysqlPledgeQuery();
   await mongoProjectQuery();
   await mongoPledgeQuery();
+  await pgProjectQuery();
+  pgPledgeQuery();
 }
 
 runEachInTurn();

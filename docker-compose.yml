@@ -7,11 +7,14 @@ services:
     ports:
       - "3000:3000"
     links:
-  #     - mongo
-  # mongo:
-  #   container_name: mongo
-  #   image: mongo
-  #   environment:
-  #     MONGO_INITDB_DATABASE: pledges
-  #   ports:
-  #     - "27017:27017"
+      - postgres
+  postgres:
+    container_name: postgres
+    image: postgres:11
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_USER: pledges
+      POSTGRES_PASSWORD: $LOCAL_PG_PASS
+    ports:
+      - "5432:5432"
