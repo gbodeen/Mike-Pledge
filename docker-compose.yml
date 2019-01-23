@@ -1,5 +1,10 @@
 version: '3.7'
 services:
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
   app:
     container_name: app
     restart: always
@@ -8,6 +13,7 @@ services:
       - "3000:3000"
     links:
       - postgres
+      - redis
   postgres:
     container_name: postgres
     image: postgres:11

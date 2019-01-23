@@ -9,7 +9,7 @@ const {
   deletePledge,
   deleteProject
 } = require('../sdc/postgres/controllers');
-const cache = require('express-redis-cache')();
+const cache = require('express-redis-cache')({ host: 'redis' });
 const { validatePledge, validateProject } = require('./validations');
 
 router.get('/pledge/:pledge_id', cache.route(), (req, res) => {
