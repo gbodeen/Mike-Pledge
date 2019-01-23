@@ -1,2 +1,8 @@
 node_modules
 npm-debug.log
+.vs
+*/.vs
+.git
+.vscode
+./data/postgres
+/var/lib/postgresql/data

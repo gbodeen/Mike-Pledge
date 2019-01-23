@@ -25,7 +25,7 @@ module.exports = {
   dev_pg_db: {
     client: 'pg',
     connection: {
-      host: '0.0.0.0',
+      host: 'postgres',
       database: 'pledges',
       user: process.env.LOCAL_PG_USER,
       password: process.env.LOCAL_PG_PASS

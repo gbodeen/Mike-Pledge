@@ -9,9 +9,10 @@ const {
   deletePledge,
   deleteProject
 } = require('../sdc/postgres/controllers');
+const cache = require('express-redis-cache')();
 const { validatePledge, validateProject } = require('./validations');
 
-router.get('/pledge/:pledge_id', (req, res) => {
+router.get('/pledge/:pledge_id', cache.route(), (req, res) => {
   const pledge_id = req.params.pledge_id;
   getPledgeDetails({ pledge_id })
     .then(details => {
@@ -23,7 +24,7 @@ router.get('/pledge/:pledge_id', (req, res) => {
     });
 });
 
-router.get('/project/:project_id', (req, res) => {
+router.get('/project/:project_id', cache.route(), (req, res) => {
   const project_id = req.params.project_id;
   getProjectDetails({ project_id })
     .then(details => {

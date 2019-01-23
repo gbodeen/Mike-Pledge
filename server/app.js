@@ -6,10 +6,12 @@ const cors = require("cors");
 // const db = require("../db/db.js");
 // const config = require("./config.js");
 const app = express();
+const timeout = require('connect-timeout');
 const router = require('./routers');
 
 // app.use(morgan("dev"));
 app.use(cors());
+app.use(timeout(2000));
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 // app.use(bodyParser.json());
